@@ -17,9 +17,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-public class RebuildLightCacheCommand extends Command {
-    public RebuildLightCacheCommand() {
-        super("rebuildlightcache", "relight");
+public class ResendLightingCommand extends Command {
+    public ResendLightingCommand() {
+        super("resendlighting", "relight");
         addSyntax(this::execute);
         setCondition(Conditions::playerOnly);
     }
@@ -28,13 +28,12 @@ public class RebuildLightCacheCommand extends Command {
         Player player = (Player) commandSender;
         Instance currentPlayerInstance = player.getInstance();
 
-        player.sendMessage(Component.text("Light cache has been rebuilt.", NamedTextColor.YELLOW));
-        //LightingChunk.relight(currentPlayerInstance, currentPlayerInstance.getChunks());
+        player.sendMessage(Component.text("Lighting has been sent.", NamedTextColor.YELLOW));
         for(Chunk chunk : currentPlayerInstance.getChunks()) {
             LightingChunk lightingChunk = (LightingChunk) chunk;
             lightingChunk.sendLighting();
         }
 
-        System.out.println(player.getUsername() + " rebuilt the light cache.");
+        System.out.println(player.getUsername() + " manually sent instance lighting.");
     }
 }
